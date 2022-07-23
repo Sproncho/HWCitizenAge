@@ -1,5 +1,6 @@
 package telran.citizens.dao;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -61,14 +62,14 @@ public class CitizensImpl implements Citizens {
 	// O(n)
 	@Override
 	public boolean remove(int id) {
-		Person victim = new Person(id, null, null, 0);
+		Person victim = new Person(id, null, null, null);
 		return idList.remove(victim) && lastNameList.remove(victim) && ageList.remove(victim);
 	}
 
 	// O(log(n))
 	@Override
 	public Person find(int id) {
-		Person pattern = new Person(id, null, null, 0);
+		Person pattern = new Person(id, null, null, null);
 		int index = Collections.binarySearch(idList, pattern);
 		return index < 0 ? null : idList.get(index);
 	}
@@ -76,9 +77,9 @@ public class CitizensImpl implements Citizens {
 	// O(log(n))
 	@Override
 	public Iterable<Person> find(int minAge, int maxAge) {
-		Person pattern = new Person(Integer.MIN_VALUE, null, null, minAge);
+		Person pattern = new Person(Integer.MIN_VALUE, null, null, LocalDate.now().minusYears(minAge));
 		int from = -Collections.binarySearch(ageList, pattern, ageComparator) - 1;
-		pattern = new Person(Integer.MAX_VALUE, null, null, maxAge);
+		pattern = new Person(Integer.MAX_VALUE, null, null, LocalDate.now().minusYears(maxAge));
 		int to = -Collections.binarySearch(ageList, pattern, ageComparator) - 1;
 		return ageList.subList(from, to);
 	}
@@ -86,9 +87,9 @@ public class CitizensImpl implements Citizens {
 	// O(log(n))
 	@Override
 	public Iterable<Person> find(String lastName) {
-		Person pattern = new Person(Integer.MIN_VALUE, null, lastName, 0);
+		Person pattern = new Person(Integer.MIN_VALUE, null, lastName, null);
 		int from = -Collections.binarySearch(lastNameList, pattern, lastNameComparator) - 1;
-		pattern = new Person(Integer.MAX_VALUE, null, lastName, 0);
+		pattern = new Person(Integer.MAX_VALUE, null, lastName, null);
 		int to = -Collections.binarySearch(lastNameList, pattern, lastNameComparator) - 1;
 		return lastNameList.subList(from, to);
 	}

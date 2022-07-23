@@ -2,6 +2,7 @@ package telran.citizens.tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -20,23 +21,23 @@ class CitizensTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		citizens = new CitizensImpl(
-				Arrays.asList(new Person(1, "Peter", "Jackson", 23), new Person(2, "John", "Smith", 20),
-						new Person(3, "Mary", "Jackson", 20), new Person(4, "Tigran", "Petrosian", 25)));
+				Arrays.asList(new Person(1, "Peter", "Jackson", LocalDate.now().minusYears(23)), new Person(2, "John", "Smith", LocalDate.now().minusYears(20)),
+						new Person(3, "Mary", "Jackson", LocalDate.now().minusYears(20)), new Person(4, "Tigran", "Petrosian", LocalDate.now().minusYears(25))));
 	}
 
 	@Test
 	void testCitizensImplListOfPerson() {
 		citizens = new CitizensImpl(
-				List.of(new Person(1, "Peter", "Jackson", 23), new Person(1, "Peter", "Jackson", 23)));
+				List.of(new Person(1, "Peter", "Jackson", LocalDate.now().minusYears(23)), new Person(1, "Peter", "Jackson", LocalDate.now().minusYears(23))));
 		assertEquals(1, citizens.size());
 	}
 
 	@Test
 	void testAdd() {
 		assertFalse(citizens.add(null));
-		assertFalse(citizens.add(new Person(2, "John", "Smith", 20)));
+		assertFalse(citizens.add(new Person(2, "John", "Smith", LocalDate.now().minusYears(20))));
 		assertEquals(4, citizens.size());
-		assertTrue(citizens.add(new Person(5, "John", "Smith", 20)));
+		assertTrue(citizens.add(new Person(5, "John", "Smith", LocalDate.now().minusYears(20))));
 		assertEquals(5, citizens.size());
 	}
 
@@ -61,8 +62,8 @@ class CitizensTest {
 	@Test
 	void testFindIntInt() {
 		Iterable<Person> res = citizens.find(20, 23);
-		Iterable<Person> expected = Arrays.asList(new Person(1, "Peter", "Jackson", 23),
-				new Person(2, "John", "Smith", 20), new Person(3, "Mary", "Jackson", 20));
+		Iterable<Person> expected = Arrays.asList(new Person(1, "Peter", "Jackson", LocalDate.now().minusYears(23)),
+				new Person(2, "John", "Smith", LocalDate.now().minusYears(20)), new Person(3, "Mary", "Jackson", LocalDate.now().minusYears(20)));
 		ArrayList<Person> actual = new ArrayList<>();
 		res.forEach(p -> actual.add(p));
 		Collections.sort(actual);
@@ -72,8 +73,8 @@ class CitizensTest {
 	@Test
 	void testFindString() {
 		Iterable<Person> res = citizens.find("Jackson");
-		Iterable<Person> expected = Arrays.asList(new Person(1, "Peter", "Jackson", 23),
-				new Person(3, "Mary", "Jackson", 20));
+		Iterable<Person> expected = Arrays.asList(new Person(1, "Peter", "Jackson", LocalDate.now().minusYears(23)),
+				new Person(3, "Mary", "Jackson", LocalDate.now().minusYears(20)));
 		ArrayList<Person> actual = new ArrayList<>();
 		res.forEach(p -> actual.add(p));
 		Collections.sort(actual);

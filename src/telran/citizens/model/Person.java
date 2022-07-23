@@ -8,11 +8,11 @@ public class Person implements Comparable<Person>{
 	private String lastName;
 
 	private LocalDate birthDate;
-	public Person(int id, String firstName, String lastName, int age) {
+	public Person(int id, String firstName, String lastName, LocalDate birthDate) {
 		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.birthDate = LocalDate.now().minusYears(age);
+		this.birthDate = birthDate;
 	}
 
 	public int getId() {
@@ -43,8 +43,8 @@ public class Person implements Comparable<Person>{
 		return LocalDate.now().getYear() - birthDate.getYear();
 	}
 
-	public void setAge(int age) {
-		this.birthDate = LocalDate.now().minusYears(age);
+	public void setBirthDate(LocalDate birthDate) {
+		this.birthDate = birthDate;
 	}
 
 	@Override
