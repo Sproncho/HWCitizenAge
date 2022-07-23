@@ -1,6 +1,7 @@
 package telran.citizens.model;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 public class Person implements Comparable<Person>{
 	private int id;
@@ -40,7 +41,7 @@ public class Person implements Comparable<Person>{
 	}
 
 	public int getAge() {
-		return LocalDate.now().getYear() - birthDate.getYear();
+		return (int)ChronoUnit.YEARS.between(birthDate,LocalDate.now());
 	}
 
 	public void setBirthDate(LocalDate birthDate) {
